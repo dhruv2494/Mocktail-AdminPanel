@@ -13,6 +13,7 @@ import { PDFManagement } from './pages/PDFManagement';
 import { ExamManagement } from './pages/ExamManagement';
 import { TopicTestSeriesManagement } from './pages/TopicTestSeriesManagement';
 import { FreeTestsManagement } from './pages/FreeTestsManagement';
+import PYQManagement from './pages/PYQManagement';
 import SubscriptionsPage from './pages/subscriptions/SubscriptionsPage';
 
 // Create a query client
@@ -88,6 +89,11 @@ const AuthWrapper: React.FC = () => {
         <Route path="free-tests" element={
           <ProtectedRoute>
             <FreeTestsManagement />
+          </ProtectedRoute>
+        } />
+        <Route path="pyqs" element={
+          <ProtectedRoute>
+            <PYQManagement />
           </ProtectedRoute>
         } />
         <Route path="categories" element={

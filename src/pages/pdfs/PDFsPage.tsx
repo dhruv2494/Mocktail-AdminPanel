@@ -9,6 +9,7 @@ import { PDFEditModal } from '../../components/modals/PDFEditModal';
 import { PDFPreviewModal } from '../../components/modals/PDFPreviewModal';
 import api from '../../services/api';
 import toast from 'react-hot-toast';
+import { ENV } from '../../config/constants';
 
 const pdfsService = {
   getPdfs: async (params: any) => {
@@ -153,7 +154,7 @@ export const PDFsPage: React.FC = () => {
       const token = localStorage.getItem('admin_token');
       console.log('Token:', token ? 'Present' : 'Missing');
       
-      const response = await fetch('http://localhost:3000/api/admin/pdf/list?page=1&limit=10', {
+      const response = await fetch(ENV.API_URL + '/api/admin/pdf/list?page=1&limit=10', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

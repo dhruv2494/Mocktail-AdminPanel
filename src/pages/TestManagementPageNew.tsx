@@ -325,14 +325,14 @@ const TestManagementPageNew: React.FC = () => {
 
         // 5. Force refresh after delay to ensure backend consistency
         setTimeout(async () => {
-          console.log('🔄 Delayed refresh - invalidating queries...');
+          // console.log('🔄 Delayed refresh - invalidating queries...');
           await queryClient.invalidateQueries({ queryKey: ['testSeries'] });
           await refetch();
-          console.log('🔄 Delayed refresh completed');
+          // console.log('🔄 Delayed refresh completed');
         }, 1500);
 
       } catch (error) {
-        console.log('Refresh error:', error);
+        // console.log('Refresh error:', error);
       }
 
       setShowModal(false);
@@ -369,14 +369,14 @@ const TestManagementPageNew: React.FC = () => {
 
         // 5. Force refresh after delay to ensure backend consistency  
         setTimeout(async () => {
-          console.log('🔄 Update: Delayed refresh - invalidating queries...');
+          // console.log('🔄 Update: Delayed refresh - invalidating queries...');
           await queryClient.invalidateQueries({ queryKey: ['testSeries'] });
           await refetch();
-          console.log('🔄 Update: Delayed refresh completed');
+          // console.log('🔄 Update: Delayed refresh completed');
         }, 1500);
 
       } catch (error) {
-        console.log('Refresh error:', error);
+        // console.log('Refresh error:', error);
       }
 
       setShowModal(false);

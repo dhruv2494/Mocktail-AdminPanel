@@ -34,8 +34,8 @@ export function useApi<T>(
     
     try {
       const response = await apiCallRef.current();
-      console.log('useApi received response:', response);
-      console.log('useApi setting data to:', response.data);
+      // console.log('useApi received response:', response);
+      // console.log('useApi setting data to:', response.data);
       setState({
         data: response.data,
         loading: false,

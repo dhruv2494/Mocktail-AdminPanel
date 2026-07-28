@@ -23,27 +23,27 @@ const oldPayload = {
 // ✅ New way (matches backend expectation)  
 const newPayload = forCategories(action, selectedUuids);
 
-console.log('🔍 Payload Comparison:');
-console.log('');
-console.log('❌ Old payload (caused 400 error):');
-console.log(JSON.stringify(oldPayload, null, 2));
-console.log('');
-console.log('✅ New payload (backend expects):');
-console.log(JSON.stringify(newPayload, null, 2));
-console.log('');
+// console.log('🔍 Payload Comparison:');
+// console.log('');
+// console.log('❌ Old payload (caused 400 error):');
+// console.log(JSON.stringify(oldPayload, null, 2));
+// console.log('');
+// console.log('✅ New payload (backend expects):');
+// console.log(JSON.stringify(newPayload, null, 2));
+// console.log('');
 
 // Verify the backend expectation
-console.log('🎯 Backend Controller Expectation:');
-console.log('const { action, categoryIds } = req.body;');
-console.log('');
-console.log('✅ New payload matches:', {
-  action: newPayload.action,
-  categoryIds: newPayload.categoryIds
-});
+// console.log('🎯 Backend Controller Expectation:');
+// console.log('const { action, categoryIds } = req.body;');
+// console.log('');
+// console.log('✅ New payload matches:', {
+//   action: newPayload.action,
+//   categoryIds: newPayload.categoryIds
+// });
 
 // Test all entity types
-console.log('\n📋 All Entity Bulk Operation Payloads:');
-console.log('');
+// console.log('\n📋 All Entity Bulk Operation Payloads:');
+// console.log('');
 
 const testEntities = [
   { name: 'TestSeries', field: 'testSeriesIds' },
@@ -58,8 +58,8 @@ testEntities.forEach(entity => {
     action: 'activate',
     [entity.field]: selectedUuids
   };
-  console.log(`${entity.name}:`, JSON.stringify(payload, null, 2));
-  console.log('');
+  // console.log(`${entity.name}:`, JSON.stringify(payload, null, 2));
+  // console.log('');
 });
 
-console.log('🎉 All payloads now match backend expectations!');
+// console.log('🎉 All payloads now match backend expectations!');

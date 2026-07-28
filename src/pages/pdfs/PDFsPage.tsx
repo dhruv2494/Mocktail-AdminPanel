@@ -13,18 +13,18 @@ import { ENV } from '../../config/constants';
 
 const pdfsService = {
   getPdfs: async (params: any) => {
-    console.log('pdfsService.getPdfs called with params:', params);
+    // console.log('pdfsService.getPdfs called with params:', params);
     const token = sessionStorage.getItem('admin_token');
-    console.log('Token in pdfsService:', token ? 'Present' : 'Missing');
+    // console.log('Token in pdfsService:', token ? 'Present' : 'Missing');
     const queryParams = new URLSearchParams(params);
-    console.log('Query string:', queryParams.toString());
+    // console.log('Query string:', queryParams.toString());
     
     try {
       const response = await api.get(`/admin/pdf/list?${queryParams}`);
-      console.log('pdfsService response:', response);
-      console.log('pdfsService response.data:', response.data);
+      // console.log('pdfsService response:', response);
+      // console.log('pdfsService response.data:', response.data);
       const serviceReturn = { data: response.data };
-      console.log('pdfsService returning:', serviceReturn);
+      // console.log('pdfsService returning:', serviceReturn);
       return serviceReturn;
     } catch (error) {
       console.error('pdfsService error:', error);
@@ -89,10 +89,10 @@ export const PDFsPage: React.FC = () => {
   const testSeries = testSeriesResponse?.data || [];
 
   // Debug logging
-  console.log('PDFs Response:', pdfsResponse);
-  console.log('PDFs Response Data:', pdfsResponse?.data);
-  console.log('Error:', error);
-  console.log('Loading:', loading);
+  // console.log('PDFs Response:', pdfsResponse);
+  // console.log('PDFs Response Data:', pdfsResponse?.data);
+  // console.log('Error:', error);
+  // console.log('Loading:', loading);
 
   // Handle different possible response structures
   const apiData = pdfsResponse?.data;
@@ -119,10 +119,10 @@ export const PDFsPage: React.FC = () => {
     pagination = { total: 0, page: 1, limit: 10, totalPages: 0 };
   }
   
-  console.log('Raw PDFs extraction:', pdfsResponse?.data?.data);
-  console.log('Actual response structure:', pdfsResponse?.data);
-  console.log('Parsed PDFs:', pdfs);
-  console.log('Pagination:', pagination);
+  // console.log('Raw PDFs extraction:', pdfsResponse?.data?.data);
+  // console.log('Actual response structure:', pdfsResponse?.data);
+  // console.log('Parsed PDFs:', pdfs);
+  // console.log('Pagination:', pagination);
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
@@ -150,9 +150,9 @@ export const PDFsPage: React.FC = () => {
   // Test API function
   const testApiCall = async () => {
     try {
-      console.log('Testing API call...');
+      // console.log('Testing API call...');
       const token = sessionStorage.getItem('admin_token');
-      console.log('Token:', token ? 'Present' : 'Missing');
+      // console.log('Token:', token ? 'Present' : 'Missing');
       
       const response = await fetch(ENV.API_URL + '/api/admin/pdf/list?page=1&limit=10', {
         headers: {
@@ -161,9 +161,9 @@ export const PDFsPage: React.FC = () => {
         }
       });
       
-      console.log('Response status:', response.status);
+      // console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data);
+      // console.log('Response data:', data);
       
       if (data.success) {
         toast.success(`Found ${data.data.length} PDFs`);
@@ -196,7 +196,7 @@ export const PDFsPage: React.FC = () => {
 
       // IMPORTANT: Validate that we received a PDF, not JSON
       const contentType = response.headers['content-type'];
-      console.log('Download response content-type:', contentType);
+      // console.log('Download response content-type:', contentType);
 
       // If we got JSON instead of PDF, it's an error
       if (contentType && contentType.includes('application/json')) {

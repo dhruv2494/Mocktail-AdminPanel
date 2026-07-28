@@ -89,8 +89,8 @@ const DynamicHierarchyPage: React.FC = () => {
       setError(null);
       
       const token = getAuthToken();
-      console.log('Token:', token ? 'Found' : 'Not found');
-      console.log('Fetching hierarchy for:', testSeriesId);
+      // console.log('Token:', token ? 'Found' : 'Not found');
+      // console.log('Fetching hierarchy for:', testSeriesId);
       
       const response = await fetch(`${API_BASE_URL}/hierarchy/${testSeriesId}`, {
         headers: {
@@ -99,7 +99,7 @@ const DynamicHierarchyPage: React.FC = () => {
         }
       });
 
-      console.log('Response status:', response.status);
+      // console.log('Response status:', response.status);
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -108,7 +108,7 @@ const DynamicHierarchyPage: React.FC = () => {
       }
 
       const result = await response.json();
-      console.log('API Response:', result);
+      // console.log('API Response:', result);
       
       if (result.success) {
         setData(result.data);

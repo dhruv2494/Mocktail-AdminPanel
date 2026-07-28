@@ -41,7 +41,7 @@ apiClient.interceptors.request.use(
     
     // Log requests in development
     if (import.meta.env.DEV) {
-      console.log(`🚀 ${config.method?.toUpperCase()} ${config.url}`, config.data);
+      // console.log(`🚀 ${config.method?.toUpperCase()} ${config.url}`, config.data);
     }
     
     return config;
@@ -56,7 +56,7 @@ apiClient.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
     // Log responses in development
     if (import.meta.env.DEV) {
-      console.log(`✅ Response:`, response.data);
+      // console.log(`✅ Response:`, response.data);
     }
     
     return response;

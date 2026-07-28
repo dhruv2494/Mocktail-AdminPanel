@@ -206,19 +206,19 @@ const PYQManagement: React.FC = () => {
 
   const handleViewQuestions = (pyq: PYQ) => {
     // Navigate to questions management for this PYQ
-    console.log('View questions for PYQ:', pyq.id);
+    // console.log('View questions for PYQ:', pyq.id);
     // TODO: Implement navigation to questions page
   };
 
   const handleViewAnalytics = (pyq: PYQ) => {
     // Navigate to analytics page for this PYQ
-    console.log('View analytics for PYQ:', pyq.id);
+    // console.log('View analytics for PYQ:', pyq.id);
     // TODO: Implement navigation to analytics page
   };
 
   const handlePreview = (pyq: PYQ) => {
     // Open PYQ preview
-    console.log('Preview PYQ:', pyq.id);
+    // console.log('Preview PYQ:', pyq.id);
     // TODO: Implement preview functionality
   };
 

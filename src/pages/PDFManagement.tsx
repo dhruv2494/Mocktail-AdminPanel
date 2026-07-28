@@ -162,22 +162,22 @@ export const PDFManagement: React.FC = () => {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
-      console.log('Course API Response:', data);
-      console.log('Response success:', data.success);
-      console.log('Response data:', data.data);
+      // console.log('Course API Response:', data);
+      // console.log('Response success:', data.success);
+      // console.log('Response data:', data.data);
       if (data.success && data.data) {
         // Map test series data to courses format
         const coursesList = data.data.map((series: any) => {
-          console.log('Mapping series:', series);
+          // console.log('Mapping series:', series);
           return {
             id: series.uuid,
             title: series.title
           };
         });
-        console.log('Final courses list:', coursesList);
+        // console.log('Final courses list:', coursesList);
         setCourses(coursesList);
       } else {
-        console.log('API call failed or no data:', data);
+        // console.log('API call failed or no data:', data);
         setCourses([]);
       }
     } catch (error) {

@@ -53,19 +53,19 @@ export const BulkActionsBar: React.FC<BulkActionsBarProps> = ({
     {
       label: 'Activate',
       icon: <CheckIcon className="h-4 w-4" />,
-      onClick: () => console.log('Activate'),
+      onClick: () => {}, // console.log('Activate'),
       variant: 'success',
     },
     {
       label: 'Deactivate',
       icon: <XMarkIcon className="h-4 w-4" />,
-      onClick: () => console.log('Deactivate'),
+      onClick: () => {}, // console.log('Deactivate'),
       variant: 'warning',
     },
     {
       label: 'Delete',
       icon: <TrashIcon className="h-4 w-4" />,
-      onClick: () => console.log('Delete'),
+      onClick: () => {}, // console.log('Delete'),
       variant: 'danger',
     },
   ];

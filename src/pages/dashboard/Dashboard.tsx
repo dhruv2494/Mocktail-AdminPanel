@@ -3,7 +3,7 @@ import { Users, BookOpen, FileText, TrendingUp, DollarSign, Activity } from 'luc
 import { StatsCard } from '../../components/dashboard/StatsCard';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  LineChart, Line, PieChart, Pie, Cell
+  LineChart, Line, PieChart, Pie, Cell, Legend
 } from 'recharts';
 import { useApi } from '../../hooks/useApi';
 import { dashboardService } from '../../services/dashboard';
@@ -199,14 +199,14 @@ export const Dashboard: React.FC = () => {
                 <p className="text-gray-500">Failed to load category data</p>
               </div>
             ) : categoryData ? (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={340}>
                 <PieChart>
                   <Pie
                     data={categoryData}
                     cx="50%"
-                    cy="50%"
+                    cy="45%"
                     labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={false}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
@@ -218,7 +218,19 @@ export const Dashboard: React.FC = () => {
                       );
                     })}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip
+                    formatter={(value: number, name: string) => {
+                      const total = categoryData.reduce((sum, c) => sum + (c.value || 0), 0);
+                      const percent = total > 0 ? ((value / total) * 100).toFixed(0) : '0';
+                      return [`${value} (${percent}%)`, name];
+                    }}
+                  />
+                  <Legend
+                    layout="horizontal"
+                    verticalAlign="bottom"
+                    align="center"
+                    wrapperStyle={{ fontSize: 12, lineHeight: '1.6em' }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             ) : null}

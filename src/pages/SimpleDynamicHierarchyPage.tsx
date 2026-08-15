@@ -66,8 +66,19 @@ interface Question {
   display_order: number;
 }
 
+interface AncestorCategory {
+  id: number;
+  uuid: string;
+  name: string;
+  hierarchy_level: number;
+}
+
 interface HierarchyData {
-  test_series: TestSeries;
+  test_series: TestSeries | null;
+  category?: Category & {
+    parent_category?: AncestorCategory | null;
+    ancestors: AncestorCategory[];
+  };
   content_type: 'empty' | 'categories' | 'questions';
   content: Category[] | Question[];
   buttons_state: {
@@ -289,7 +300,6 @@ const SimpleDynamicHierarchyPage: React.FC = () => {
   const [data, setData] = useState<HierarchyData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [breadcrumb, setBreadcrumb] = useState<Category[]>([]);
 
   // Modal states
   const [showCategoryModal, setShowCategoryModal] = useState(false);
@@ -462,56 +472,17 @@ const SimpleDynamicHierarchyPage: React.FC = () => {
     saveQuestions(reordered);
   };
 
-  // Build breadcrumb trail
-  const buildBreadcrumb = async (currentCategoryUuid: string): Promise<Category[]> => {
-    const breadcrumbTrail: Category[] = [];
-
-    try {
-      // For now, we'll build a simple breadcrumb based on the current category
-      // In a full implementation, you'd need to fetch parent categories
-      const response = await fetch(`${API_BASE}/categories/${currentCategoryUuid}`, { headers: apiHeaders });
-      const result = await response.json();
-
-      if (result.success && result.data.category) {
-        const category = result.data.category;
-
-        // If the category has a parent, we could recursively build the full path
-        // For now, we'll just add the current category's parent info if available
-        if (category.parent_category_id) {
-          // This is a simplified approach - in a full implementation you'd recursively fetch parents
-          breadcrumbTrail.push({
-            uuid: category.parent_category_id,
-            name: 'Parent Category', // In real implementation, fetch the actual parent name
-            hierarchy_level: category.hierarchy_level - 1
-          } as Category);
-        }
-      }
-    } catch (error) {
-      console.warn('Failed to build breadcrumb:', error);
-    }
-
-    return breadcrumbTrail;
-  };
-
   // Fetch hierarchy data
   const fetchData = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      let url: string;
-      if (categoryUuid) {
-        // Fetch category content
-        url = `${API_BASE}/categories/${categoryUuid}`;
-
-        // Build breadcrumb for category navigation
-        const breadcrumbTrail = await buildBreadcrumb(categoryUuid);
-        setBreadcrumb(breadcrumbTrail);
-      } else {
-        // Fetch root categories for course
-        url = `${API_BASE}/${testSeriesUuid}`;
-        setBreadcrumb([]); // Clear breadcrumb for root level
-      }
+      // The backend returns the full ancestor chain (data.category.ancestors) and the
+      // owning course (data.test_series) directly, so no separate breadcrumb fetch is needed.
+      const url = categoryUuid
+        ? `${API_BASE}/categories/${categoryUuid}`
+        : `${API_BASE}/${testSeriesUuid}`;
 
       const response = await fetch(url, { headers: apiHeaders });
 
@@ -1251,16 +1222,11 @@ const SimpleDynamicHierarchyPage: React.FC = () => {
                     {data?.test_series?.name || 'Course'}
                   </button>
 
-                  {breadcrumb.map((category, index) => (
+                  {(data?.category?.ancestors || []).map((category) => (
                     <React.Fragment key={category.uuid}>
                       <span>/</span>
                       <button
-                        onClick={() => {
-                          // Navigate to this category level
-                          const categoryPath = breadcrumb.slice(0, index + 1);
-                          const targetCategory = categoryPath[categoryPath.length - 1];
-                          navigate(`/simple-hierarchy/${testSeriesUuid}/categories/${targetCategory.uuid}`);
-                        }}
+                        onClick={() => navigate(`/simple-hierarchy/${testSeriesUuid}/categories/${category.uuid}`)}
                         className="text-blue-600 hover:text-blue-800 transition-colors"
                       >
                         {category.name}
